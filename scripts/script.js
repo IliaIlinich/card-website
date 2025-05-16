@@ -1,3 +1,3 @@
 function showMessage() {
-    alert('Button clicked!');
+    alert('Молодец, ты нажал на кнопку');
 }
