@@ -1,8 +1,63 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    text-align: center;
+.top-panel {
+    background: #333;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
-h1 {
-    color: #333;
+
+.top-panel a {
+    float: left;
+    color:#f2f2f2;
+    padding: 14px 16px;
+    text-decoration: none;
+    font: bold 17px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.description {
+    margin-top: 10px;
+    border: #ddd 1px solid;
+}
+
+.description a {
+    font: 17px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 5px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.block {
+    width: 200px;
+    aspect-ratio: 1/1;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+
+    opacity: 0;
+    transform: scale(0.95);
+    animation: fadeInZoom 1s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeInZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.block a {
+    text-align: center;
+    font: 14px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: black;
 }
