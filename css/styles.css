@@ -17,6 +17,8 @@
 .description {
     margin-top: 10px;
     border: #ddd 1px solid;
+    align-items: center;
+    display: flex;
 }
 
 .description a {
@@ -30,10 +32,14 @@
     justify-content: space-evenly;
 }
 
+.icon {
+    width: 70%;
+    height: auto;
+}
+
 .block {
     width: 200px;
     aspect-ratio: 1/1;
-    border: 1px solid #ddd;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,7 +48,7 @@
     opacity: 0;
     transform: scale(0.95);
     animation: fadeInZoom 1s ease-out forwards;
-    animation-delay: 0.2s;
+    animation-delay: 0.1s;
 }
 
 @keyframes fadeInZoom {
@@ -52,7 +58,7 @@
     }
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1.0);
     }
 }
 
@@ -60,4 +66,13 @@
     text-align: center;
     font: 14px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
     color: black;
+}
+
+.hoverable {
+    transition: 0.1s ease-in-out;
+}
+
+.hoverable:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }
