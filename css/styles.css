@@ -81,3 +81,103 @@
     opacity: 1;
     transform: scale(1.1);
 }
+
+/* Container styling with perspective */
+.container {
+  perspective: 1000px;
+  margin: 100px auto;
+  /* The perspective property defines how far the object is from the viewer */
+  /* A smaller value creates a more intense 3D effect */
+}
+
+/* Cube container styles */
+.cube {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  /* This tells the browser that child elements should be positioned in 3D space */
+}
+
+/* Common styles for all faces */
+.face {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  opacity: 0.9;
+}
+/* Position each face of the cube */
+.front {
+  background-color: #ff8a65; /* Coral */
+  transform: translateZ(100px);
+  /* Moves the front face 100px towards the viewer */
+}
+
+.back {
+  background-color: #4fc3f7; /* Light Blue */
+  transform: rotateY(180deg) translateZ(100px);
+  /* Rotates 180° around Y-axis and moves 100px forward */
+}
+
+.right {
+  background-color: #81c784; /* Light Green */
+  transform: rotateY(90deg) translateZ(100px);
+  /* Rotates 90° right around Y-axis and moves 100px forward */
+}
+
+.left {
+  background-color: #9575cd; /* Purple */
+  transform: rotateY(-90deg) translateZ(100px);
+  /* Rotates 90° left around Y-axis and moves 100px forward */
+}
+
+.top {
+  background-color: #ffb74d; /* Orange */
+  transform: rotateX(90deg) translateZ(100px);
+  /* Rotates 90° upward around X-axis and moves 100px forward */
+}
+
+.bottom {
+  background-color: #f06292; /* Pink */
+  transform: rotateX(-90deg) translateZ(100px);
+  /* Rotates 90° downward around X-axis and moves 100px forward */
+}
+
+/* Define the rotation animation */
+@keyframes rotate {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: rotateX(90deg) rotateY(90deg);
+  }
+  50% {
+    transform: rotateX(180deg) rotateY(180deg);
+  }
+  75% {
+    transform: rotateX(270deg) rotateY(270deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+/* Apply the animation to the cube */
+.cube {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotate 20s infinite linear;
+  /* 20s defines the duration of one complete rotation */
+  /* infinite means the animation will repeat forever */
+  /* linear means the animation speed is constant */
+}
