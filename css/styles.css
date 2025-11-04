@@ -82,29 +82,31 @@
     transform: scale(1.1);
 }
 
-/* Container styling with perspective */
 .container {
   perspective: 1000px;
   margin: 100px auto;
-  /* The perspective property defines how far the object is from the viewer */
-  /* A smaller value creates a more intense 3D effect */
 }
 
-/* Cube container styles */
-.cube {
-  width: 200px;
-  height: 200px;
+.SlotMachine {
+  background-color:#333;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.Wheel{
+  width: 100px;
+  height: 100px;
   position: relative;
   transform-style: preserve-3d;
-  /* This tells the browser that child elements should be positioned in 3D space */
+  animation: spin 10s infinite linear;
 }
 
-/* Common styles for all faces */
-.face {
+.Side1, .Side2, .Side3 {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  border: 2px solid white;
+  width: 100px;
+  height: 100px;
+  border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,77 +115,21 @@
   color: white;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   opacity: 0.9;
-  backface-visibility: visible;
-  -webkit-backface-visibility: visible;
-}
-/* Position each face of the cube */
-.front {
-  background-color: #ff8a65; /* Coral */
-  transform: translateZ(100px);
-  /* Moves the front face 100px towards the viewer */
 }
 
-.back {
-  background-color: #4fc3f7; /* Light Blue */
-  transform: rotateY(180deg) translateZ(100px);
-  /* Rotates 180° around Y-axis and moves 100px forward */
+.Side1 {
+  background-color: yellow;
+  transform: rotateX(0deg) translateZ(50px);
 }
 
-.right {
-  background-color: #81c784; /* Light Green */
-  transform: rotateY(90deg) translateZ(100px);
-  /* Rotates 90° right around Y-axis and moves 100px forward */
+.Side2 {
+  background-color: blue;
+  transform: rotateX(120deg) translateZ(50px);
 }
 
-.left {
-  background-color: #9575cd; /* Purple */
-  transform: rotateY(-90deg) translateZ(100px);
-  /* Rotates 90° left around Y-axis and moves 100px forward */
-}
-
-.top {
-  background-color: #ffb74d; /* Orange */
-  transform: rotateX(90deg) translateZ(100px);
-  /* Rotates 90° upward around X-axis and moves 100px forward */
-}
-
-.bottom {
-  background-color: #f06292; /* Pink */
-  transform: rotateX(-90deg) translateZ(100px);
-  /* Rotates 90° downward around X-axis and moves 100px forward */
-}
-
-/* Define the rotation animation */
-@keyframes rotate {
-  0% {
-    transform: rotateX(0deg) rotateY(0deg);
-  }
-  25% {
-    transform: rotateX(90deg) rotateY(90deg);
-  }
-  50% {
-    transform: rotateX(180deg) rotateY(180deg);
-  }
-  75% {
-    transform: rotateX(270deg) rotateY(270deg);
-  }
-  100% {
-    transform: rotateX(360deg) rotateY(360deg);
-  }
-}
-
-/* Base cube styles */
-.cube {
-  width: 300px;
-  height: 100px;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.5s ease-out;
-}
-
-/* Spinning animation */
-.cube.spinning {
-  animation: spin 0.5s linear infinite;
+.Side3 {
+  background-color: green;
+  transform: rotateX(240deg) translateZ(50px);
 }
 
 @keyframes spin {
@@ -191,27 +137,12 @@
     transform: rotateX(0deg) rotateY(0deg);
   }
   to {
-    transform: rotateX(360deg) rotateY(360deg);
+    transform: rotateX(360deg) rotateY(0deg);
   }
 }
 
-.SlotMachine {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    background: #2c3e50;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
-}
-
-.wheels-container {
-    display: flex;
-    gap: 10px;
-}
-
 .spin-button {
+    margin: 30px;
     padding: 15px 30px;
     font-size: 1.2em;
     background: linear-gradient(145deg, #ff9f43, #ff6b6b);
