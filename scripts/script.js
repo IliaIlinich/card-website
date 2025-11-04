@@ -32,6 +32,8 @@ function animateWheels(wheels) {
                 let delta = wheel.targetAngle - wheel.snapStartAngle;
                 delta = (((delta + 180) % 360) - 180);
                 wheel.angle = (wheel.snapStartAngle + delta * eased) % 360;
+                if (wheel.angle > 180) wheel.angle -= 360;
+                if (wheel.angle < -180) wheel.angle += 360;
                 wheel.style.transform = `rotateX(${wheel.angle}deg)`;
             }
             anyActive = true;
