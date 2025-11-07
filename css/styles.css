@@ -1,5 +1,5 @@
 body {
-  background-color: #AAA;
+  background-color: #ffffff;
 }
 
 .top-panel {
@@ -99,12 +99,14 @@ body {
   align-items: center;
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 30px;
 }
 
 .Wheel{
   width: 100px;
   height: 100px;
+  margin-left: 10px;
+  margin-right: 10px;
   position: relative;
   transform-style: preserve-3d;
   animation: spin 10s infinite linear;
@@ -118,7 +120,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 40px;
   font-weight: bold;
   color: white;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -150,7 +152,7 @@ body {
 }
 
 .spin-button {
-    margin: 30px;
+    margin: 10px;
     padding: 15px 30px;
     font-size: 1.2em;
     background: linear-gradient(145deg, #ff9f43, #ff6b6b);

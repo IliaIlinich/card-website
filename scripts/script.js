@@ -9,6 +9,7 @@ function getRandomTime() {
     return Math.random() * 4000 + 1000;
 }
 
+// Main animation loop
 function animateWheels(wheels) {
     const now = performance.now();
     let anyActive = false;
@@ -20,21 +21,28 @@ function animateWheels(wheels) {
             wheel.style.transform = `rotateX(${wheel.angle}deg)`;
             wheel.lastTime = now;
             anyActive = true;
+
         } else if (wheel.isSnapping) {
             const elapsed = now - wheel.snapStartTime;
-            if (elapsed >= wheel.snapDuration) {
+            const duration = wheel.snapDuration;
+
+            if (elapsed >= duration) {
                 wheel.angle = wheel.targetAngle;
                 wheel.style.transform = `rotateX(${wheel.angle}deg)`;
                 wheel.isSnapping = false;
             } else {
-                const progress = elapsed / wheel.snapDuration;
-                const eased = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-                let delta = wheel.targetAngle - wheel.snapStartAngle;
-                delta = (((delta + 180) % 360) - 180);
-                wheel.angle = (wheel.snapStartAngle + delta * eased) % 360;
-                if (wheel.angle > 180) wheel.angle -= 360;
-                if (wheel.angle < -180) wheel.angle += 360;
-                wheel.style.transform = `rotateX(${wheel.angle}deg)`;
+                const progress = elapsed / duration;
+                const eased = progress < 0.5
+                    ? 2 * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+                let current = wheel.snapStartAngle + (wheel.targetAngle - wheel.snapStartAngle) * eased;
+
+                if (current > 180) current -= 360;
+                if (current < -180) current += 360;
+
+                wheel.angle = current;
+                wheel.style.transform = `rotateX(${current}deg)`;
             }
             anyActive = true;
         }
@@ -48,8 +56,7 @@ function animateWheels(wheels) {
 }
 
 function startSlowdown(wheels) {
-    let stoppingInterval = 1000;
-
+    const stoppingInterval = 1000;
     wheels.forEach(wheel => {
         let currentDuration = wheel.currentDuration;
         const slowdownInterval = setInterval(() => {
@@ -59,16 +66,30 @@ function startSlowdown(wheels) {
             if (currentDuration >= 3.0) {
                 clearInterval(slowdownInterval);
                 wheel.isSpinning = false;
+
                 let currentAngle = wheel.angle % 360;
+                if (currentAngle > 180) currentAngle -= 360;
+                if (currentAngle < -180) currentAngle += 360;
+
                 const targets = [0, 120, 240];
-                const diffs = targets.map(t => Math.min(Math.abs(currentAngle - t), 360 - Math.abs(currentAngle - t)));
-                const minDiff = Math.min(...diffs);
-                const targetIndex = diffs.findIndex(d => d === minDiff);
-                wheel.targetAngle = targets[targetIndex];
+                let bestTarget = 0;
+                let minDiff = Infinity;
+
+                targets.forEach(t => {
+                    let diff = t - currentAngle;
+                    diff = ((diff + 180) % 360) - 180;
+                    const absDiff = Math.abs(diff);
+                    if (absDiff < minDiff) {
+                        minDiff = absDiff;
+                        bestTarget = currentAngle + diff;
+                    }
+                });
+
+                wheel.targetAngle = bestTarget;
+                wheel.snapStartAngle = currentAngle;
                 wheel.isSnapping = true;
                 wheel.snapStartTime = performance.now();
                 wheel.snapDuration = 500;
-                wheel.snapStartAngle = currentAngle;
             }
         }, stoppingInterval);
     });
@@ -76,10 +97,9 @@ function startSlowdown(wheels) {
 
 function spinWheel() {
     if (isSpinning) return;
-
     isSpinning = true;
-    const wheels = document.querySelectorAll('.Wheel');
 
+    const wheels = document.querySelectorAll('.Wheel');
     wheels.forEach(wheel => {
         wheel.style.animation = 'none';
         wheel.currentDuration = getRandomSpeed();
@@ -92,3 +112,10 @@ function spinWheel() {
     animateWheels(wheels);
     setTimeout(() => startSlowdown(wheels), getRandomTime());
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const spinButton = document.getElementById('spinButton');
+    if (spinButton) {
+        spinButton.addEventListener('click', spinWheel);
+    }
+});
